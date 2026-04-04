@@ -1,27 +1,37 @@
 <?php
 $title = 'Home';
-$stmt = $pdo->query("SELECT p.*, b.name AS brand_name FROM products p JOIN brands b ON b.id = p.brand_id WHERE p.is_active = 1 ORDER BY p.id DESC LIMIT 8");
-$products = $stmt->fetchAll();
 require BASE_PATH . '/views/layouts/header.php';
 ?>
-<section class="hero card">
-    <h1>Radiant Skin Starts Here</h1>
-    <p>Luxury skincare dengan multi-brand catalog, checkout, dan pembayaran transfer.</p>
-    <a class="btn" href="<?= BASE_URL ?>/catalog">Lihat Catalog</a>
+
+<section class="hero">
+    <div>
+        <span class="badge" style="background:#fce7f3;color:#e11d8a;">✨ New Collection</span>
+
+        <h1>
+            Radiant Skin <br>
+            <span style="color:#e11d8a;">Starts Here</span>
+        </h1>
+
+        <p>
+            Discover our luxurious skincare collection crafted with natural ingredients
+            to reveal your natural glow and beauty.
+        </p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a class="btn" href="<?= BASE_URL ?>/catalog">Shop Now</a>
+            <a class="btn btn-outline" href="<?= BASE_URL ?>/catalog">Learn More</a>
+        </div>
+
+        <div style="margin-top:30px;display:flex;gap:30px;flex-wrap:wrap;">
+            <div><strong>100%</strong><br><small>Natural</small></div>
+            <div><strong>50k+</strong><br><small>Customers</small></div>
+            <div><strong>4.9★</strong><br><small>Rating</small></div>
+        </div>
+    </div>
+
+    <div class="card" style="padding:0;overflow:hidden;">
+        <img src="<?= BASE_URL ?>/assets/img/hero.jpg" alt="Hero Image" style="width:100%;height:680px;object-fit:cover;border-radius:20px;">
+    </div>
 </section>
 
-<h2>Produk Terbaru</h2>
-<div class="grid products-grid">
-    <?php foreach ($products as $product): ?>
-        <article class="card product-card">
-            <?php if ($product['image']): ?>
-                <img class="product-thumb" src="<?= BASE_URL ?>/uploads/products/<?= e($product['image']) ?>" alt="<?= e($product['name']) ?>">
-            <?php endif; ?>
-            <h3><?= e($product['name']) ?></h3>
-            <p><?= e($product['brand_name']) ?></p>
-            <strong><?= rupiah($product['price']) ?></strong>
-            <a class="btn btn-outline" href="<?= BASE_URL ?>/product?slug=<?= e($product['slug']) ?>">Detail</a>
-        </article>
-    <?php endforeach; ?>
-</div>
 <?php require BASE_PATH . '/views/layouts/footer.php'; ?>

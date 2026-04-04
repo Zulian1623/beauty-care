@@ -43,9 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $items = $_SESSION['cart'];
 require BASE_PATH . '/views/layouts/header.php';
 ?>
-<h1>Keranjang</h1>
+<h1 style="margin-bottom:18px;">Keranjang Belanja</h1>
+
 <?php if (!$items): ?>
-    <div class="card">Keranjang kosong.</div>
+    <div class="card">
+        <p style="margin:0;font-size:1.05rem;">Keranjang kamu masih kosong.</p>
+    </div>
 <?php else: ?>
     <div class="card">
         <table class="table">
