@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'glowe/ecommerce',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '8dd9eaa922cc42d95e4ed15b70255faee33882b8',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '8ebc8473739b3ce3db13e6d481cc3bab1aa1e815',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'glowe/ecommerce' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '8dd9eaa922cc42d95e4ed15b70255faee33882b8',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '8ebc8473739b3ce3db13e6d481cc3bab1aa1e815',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
