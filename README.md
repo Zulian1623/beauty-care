@@ -1,4 +1,4 @@
-# Glowé E-Commerce
+# Beauty Caré E-Commerce
 
 ## Cara jalanin di XAMPP/Laragon
 1. Buat folder project `glowe-ecommerce`
