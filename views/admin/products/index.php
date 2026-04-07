@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $pdo->prepare('DELETE FROM products WHERE id = ?')->execute([$id]);
             admin_log('Delete product', ['product_id' => $id]);
+            admin_log('Menghapus brand', ['id' => $id]);
             flash('success', 'Produk berhasil dihapus.');
         }
 

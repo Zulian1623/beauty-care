@@ -24,14 +24,20 @@ require BASE_PATH . '/views/layouts/admin_header.php';
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($logs as $log): ?>
+            <?php if ($logs): ?>
+                <?php foreach ($logs as $log): ?>
+                    <tr>
+                        <td><?= e($log['admin_name']) ?></td>
+                        <td><?= e($log['activity']) ?></td>
+                        <td><small><?= e($log['context']) ?></small></td>
+                        <td><?= e($log['created_at']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?= e($log['admin_name']) ?></td>
-                    <td><?= e($log['activity']) ?></td>
-                    <td><small><?= e($log['context']) ?></small></td>
-                    <td><?= e($log['created_at']) ?></td>
+                    <td colspan="4">Belum ada aktivitas admin.</td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </tbody>
     </table>
 </div>

@@ -3,7 +3,7 @@
         'name' => 'glowe/ecommerce',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '8ebc8473739b3ce3db13e6d481cc3bab1aa1e815',
+        'reference' => 'a2ce56e058680cec0e03eb9b1b048759aebc34c0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'glowe/ecommerce' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '8ebc8473739b3ce3db13e6d481cc3bab1aa1e815',
+            'reference' => 'a2ce56e058680cec0e03eb9b1b048759aebc34c0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

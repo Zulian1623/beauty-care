@@ -124,7 +124,7 @@ function admin_log(string $activity, array $context = []): void
     }
 
     $stmt = $pdo->prepare('INSERT INTO admin_logs(admin_id, activity, context) VALUES(?,?,?)');
-    $stmt->execute([
+    $stmt->execute([ 
         current_user_id(),
         $activity,
         !empty($context) ? json_encode($context, JSON_UNESCAPED_UNICODE) : null

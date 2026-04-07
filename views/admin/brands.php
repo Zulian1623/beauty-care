@@ -11,16 +11,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'create') {
         $pdo->prepare('INSERT INTO brands(name,description) VALUES(?,?)')->execute([$name, $description]);
+
+        admin_log('Menambahkan brand', [
+            'name' => $name,
+            'description' => $description
+        ]);
+
         flash('success', 'Brand ditambahkan.');
     }
 
     if ($action === 'update' && $id > 0) {
         $pdo->prepare('UPDATE brands SET name=?, description=? WHERE id=?')->execute([$name, $description, $id]);
+
+        admin_log('Mengubah brand', [
+            'brand_id' => $id,
+            'name' => $name,
+            'description' => $description
+        ]);
+
         flash('success', 'Brand diperbarui.');
     }
 
     if ($action === 'delete' && $id > 0) {
         $pdo->prepare('DELETE FROM brands WHERE id=?')->execute([$id]);
+
+        admin_log('Menghapus brand', [
+            'brand_id' => $id
+        ]);
+
         flash('success', 'Brand dihapus.');
     }
 
@@ -41,6 +59,7 @@ $brands = $pdo->query('SELECT * FROM brands ORDER BY id DESC')->fetchAll();
 require BASE_PATH . '/views/layouts/admin_header.php';
 ?>
 <h1>Brands</h1>
+
 <div class="grid two-cols">
     <form method="post" class="card form-grid">
         <?= csrf_input() ?>
@@ -87,4 +106,5 @@ require BASE_PATH . '/views/layouts/admin_header.php';
         </table>
     </div>
 </div>
+
 <?php require BASE_PATH . '/views/layouts/admin_footer.php'; ?>

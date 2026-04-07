@@ -14,17 +14,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'create') {
         $pdo->prepare('INSERT INTO shipping_rates(label,city,cost,is_active) VALUES(?,?,?,1)')
             ->execute([$label, $city, $cost]);
+
+        admin_log('Menambahkan ongkir', ['label' => $label, 'city' => $city, 'cost' => $cost]);
         flash('success', 'Ongkir berhasil ditambahkan.');
     }
 
     if ($action === 'update' && $id > 0) {
         $pdo->prepare('UPDATE shipping_rates SET label=?, city=?, cost=?, is_active=? WHERE id=?')
             ->execute([$label, $city, $cost, $isActive, $id]);
+        admin_log('Mengupdate ongkir', ['id' => $id, 'label' => $label, 'city' => $city, 'cost' => $cost]);
         flash('success', 'Ongkir berhasil diperbarui.');
     }
 
     if ($action === 'delete' && $id > 0) {
         $pdo->prepare('DELETE FROM shipping_rates WHERE id=?')->execute([$id]);
+        admin_log('Menghapus ongkir', ['id' => $id]);
         flash('success', 'Ongkir berhasil dihapus.');
     }
 

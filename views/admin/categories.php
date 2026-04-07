@@ -10,16 +10,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'create') {
         $pdo->prepare('INSERT INTO categories(name) VALUES(?)')->execute([$name]);
+        admin_log('Menambahkan kategori', ['name' => $name]);
         flash('success', 'Kategori ditambahkan.');
     }
 
     if ($action === 'update' && $id > 0) {
         $pdo->prepare('UPDATE categories SET name=? WHERE id=?')->execute([$name, $id]);
+        admin_log('Mengupdate kategori', ['id' => $id, 'name' => $name]);
         flash('success', 'Kategori diperbarui.');
     }
 
     if ($action === 'delete' && $id > 0) {
         $pdo->prepare('DELETE FROM categories WHERE id=?')->execute([$id]);
+        admin_log('Menghapus kategori', ['id' => $id]);
         flash('success', 'Kategori dihapus.');
     }
 

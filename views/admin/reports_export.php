@@ -15,6 +15,12 @@ $rows = $pdo->query("
     ORDER BY month DESC
 ")->fetchAll();
 
+
+// ✅ TAMBAHKAN DI SINI
+admin_log('Export laporan bulanan', [
+    'total_bulan' => count($rows)
+]);
+
 foreach ($rows as $row) {
     fputcsv($output, [$row['month'], $row['total_orders'], $row['total_sales']]);
 }
