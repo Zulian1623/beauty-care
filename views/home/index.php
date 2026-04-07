@@ -30,7 +30,7 @@ require BASE_PATH . '/views/layouts/header.php';
     </div>
 
     <div class="card" style="padding:0;overflow:hidden;">
-        <img src="<?= BASE_URL ?>/assets/img/1.png" alt="Hero Image" style="width:100%;height:680px;object-fit:cover;border-radius:20px;">
+        <img src="<?= BASE_URL ?>public/assets/img/1.png" alt="Hero Image" style="width:100%;height:680px;object-fit:cover;border-radius:20px;">
     </div>
 </section>
 
