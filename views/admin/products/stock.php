@@ -29,6 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo->prepare('INSERT INTO stock_movements(product_id,movement_type,qty,note) VALUES(?,?,?,?)')
         ->execute([$productId, $type, $qty, $note]);
 
+    admin_log('Pergerakan stok produk', [
+        'product_id' => $productId,
+        'product_name' => $product['name'],
+        'movement_type' => $type,
+        'qty' => $qty,
+        'note' => $note
+    ]);
+
     flash('success', 'Pergerakan stok disimpan.');
     redirect('/admin/products/stock?id=' . $productId);
 }

@@ -7,6 +7,11 @@
     <title><?= e($title ?? APP_NAME) ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
 <header class="site-header">
@@ -20,7 +25,7 @@
 
         <nav class="nav-links">
             <a href="<?= BASE_URL ?>/">Home</a>
-            <a href="<?= BASE_URL ?>/catalog">Catalog</a>
+            <a href="#catalog" class="nav-link">Catalog</a>
             <a href="<?= BASE_URL ?>/cart">Cart (<?= cart_count() ?>)</a>
 
             <?php if (is_logged_in()): ?>

@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     verify_csrf();
     $orderStatus = trim($_POST['order_status'] ?? $order['order_status']);
     $pdo->prepare('UPDATE orders SET order_status = ? WHERE id = ?')->execute([$orderStatus, $id]);
+    admin_log('Update status pesanan', ['order_id' => $id, 'status' => $orderStatus]);
     flash('success', 'Status order diperbarui.');
     redirect('/admin/order-detail?id=' . $id);
 }

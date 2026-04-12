@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ->execute([$productId, $galleryImage, $index === 0 ? 1 : 0]);
         }
 
+        admin_log('Menambahkan brand', ['name' => $name, 'description' => $description]);
+
         flash('success', 'Produk berhasil ditambahkan.');
         redirect('/admin/products');
     } catch (Throwable $e) {

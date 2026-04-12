@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $update = $pdo->prepare('UPDATE products SET brand_id=?, category_id=?, name=?, description=?, price=?, stock=?, sku=?, image=?, is_active=? WHERE id=?');
     $update->execute([$brandId, $categoryId, $name, $description, $price, $stock, $sku, $image, $isActive, $id]);
+    admin_log('Mengupdate brand', ['id' => $id, 'name' => $name, 'description' => $description]);
     flash('success', 'Produk berhasil diperbarui.');
     redirect('/admin/products');
 }
