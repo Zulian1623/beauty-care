@@ -16,7 +16,7 @@
 <body>
 <header class="site-header">
     <div class="container topbar">
-        <a class="brand" href="<?= BASE_URL ?>/">Glowé</a>
+        <a class="brand" href="<?= BASE_URL ?>/">BeautyCaré</a>
 
         <form class="global-search" method="get" action="<?= BASE_URL ?>/catalog">
             <input type="text" name="q" placeholder="Cari produk, brand, kategori..." value="<?= e($_GET['q'] ?? '') ?>">

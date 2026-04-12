@@ -1,7 +1,7 @@
-# Glowé E-Commerce
+# Beauty Caré E-Commerce
 
 ## Cara jalanin di XAMPP/Laragon
-1. Buat folder project `glowe-ecommerce`
+1. Buat folder project `Beauty Care`
 2. Copy semua file ke struktur yang sesuai
 3. Jalankan `composer install`
 4. Import `db/db.sql`
@@ -10,7 +10,7 @@
    - `public/uploads/products`
    - `public/uploads/payments`
 7. Pastikan kedua folder writable
-8. Akses: `http://localhost/glowe-ecommerce/public`
+8. Akses: `http://localhost/Beauty care/public`
 
 ## Login admin
 - Email: admin@glowe.test

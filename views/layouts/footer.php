@@ -1,6 +1,5 @@
 <footer class="site-footer">
     <div class="container footer-wrap">
-
         <div class="footer-grid">
 
             <!-- BRAND -->
@@ -33,7 +32,7 @@
         <div class="footer-bottom">
             <p>© <?= date('Y') ?> Glowé. All rights reserved.</p>
         </div>
-
+        <p>© <?= date('Y') ?> Beauty caré. All rights reserved.</p>
     </div>
 </footer>
 
