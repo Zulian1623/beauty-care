@@ -56,25 +56,25 @@ require BASE_PATH . '/views/layouts/header.php';
 </section>
 
 <section class="benefits-section">
-    <div class="benefit-card active">
+    <div class="benefit-card card">
         <div class="benefit-icon">🍃</div>
         <h3>100% Natural</h3>
         <p>All our products are made from natural and organic ingredients</p>
     </div>
 
-    <div class="benefit-card">
+    <div class="benefit-card card">
         <div class="benefit-icon">🛡</div>
         <h3>Dermatologist Tested</h3>
         <p>Clinically tested and approved by skin care professionals</p>
     </div>
 
-    <div class="benefit-card">
+    <div class="benefit-card card">
         <div class="benefit-icon">♡</div>
         <h3>Cruelty Free</h3>
         <p>We never test on animals and support ethical practices</p>
     </div>
 
-    <div class="benefit-card">
+    <div class="benefit-card card">
         <div class="benefit-icon">✦</div>
         <h3>Visible Results</h3>
         <p>See noticeable improvements in just 2-4 weeks</p>

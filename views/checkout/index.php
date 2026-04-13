@@ -38,11 +38,10 @@
 
         $addressId = (int) ($_POST['address_id'] ?? 0);
         $shippingId = (int) ($_POST['shipping_id'] ?? 0);
-        $paymentMethod = trim($_POST['payment_method'] ?? 'transfer');
+        $paymentMethod = trim($_POST['payment_method'] ?? 'bank_transfer');
         $notes = trim($_POST['notes'] ?? '');
-        $paymentMethod = trim($_POST['payment_method'] ?? 'transfer');
 
-        if (!in_array($paymentMethod, ['transfer', 'ewallet', 'qris', 'cod'], true)) {
+        if (!in_array($paymentMethod, ['bank_transfer', 'ewallet', 'qris', 'cod'], true)) {
             flash('error', 'Metode pembayaran tidak valid.');
             redirect('/checkout');
         }
@@ -211,7 +210,7 @@
 
         <label>Metode Pembayaran
             <select name="payment_method" required>
-                <option value="transfer">Transfer Bank</option>
+                <option value="bank_transfer">Transfer Bank</option>
                 <option value="ewallet">E-Wallet</option>
                 <option value="qris">QRIS</option>
                 <option value="cod">COD</option>

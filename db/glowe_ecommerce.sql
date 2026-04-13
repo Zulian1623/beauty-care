@@ -186,7 +186,7 @@ CREATE TABLE `orders` (
   `subtotal` decimal(12,2) NOT NULL,
   `shipping_cost` decimal(12,2) NOT NULL,
   `total` decimal(12,2) NOT NULL,
-  `payment_method` enum('bank_transfer') NOT NULL DEFAULT 'bank_transfer',
+  `payment_method` enum('bank_transfer', 'ewallet', 'qris', 'cod') NOT NULL DEFAULT 'bank_transfer',
   `payment_status` enum('pending','waiting_verification','paid','rejected') NOT NULL DEFAULT 'pending',
   `order_status` enum('new','processed','shipped','completed','cancelled') NOT NULL DEFAULT 'new',
   `notes` text,

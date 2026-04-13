@@ -537,11 +537,13 @@ p{
   border-radius:24px;
   background:transparent;
 }
+.benefit-card{
+  text-align:center;
+  transition:0.3s ease;
+}
 
-.benefit-card.active{
-  background:#fff;
-  box-shadow:0 10px 30px rgba(17,24,39,.04);
-  border:1px solid #f4e7ee;
+.benefit-card:hover{
+  transform:translateY(-5px);
 }
 
 .benefit-icon{

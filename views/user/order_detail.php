@@ -21,7 +21,7 @@ $items = $itemStmt->fetchAll();
 $method = $order['payment_method'] ?? '';
 
 $methodText = match ($method) {
-    'transfer' => 'Transfer Bank',
+    'bank_transfer' => 'Transfer Bank',
     'ewallet' => 'E-Wallet',
     'qris' => 'QRIS',
     'cod' => 'COD',
@@ -86,7 +86,7 @@ require BASE_PATH . '/views/layouts/header.php';
 
     <h3><?= e($methodText) ?></h3>
 
-    <?php if ($method === 'transfer'): ?>
+    <?php if ($method === 'bank_transfer'): ?>
         <p><?= e($bank['bank_name'] ?? '') ?> - <?= e($bank['bank_account_number'] ?? '') ?> a.n <?= e($bank['bank_account_name'] ?? '') ?></p>
     <?php elseif ($method === 'ewallet'): ?>
         <p>DANA / OVO / GoPay / ShopeePay: 081234567890 a.n Glowé Skincare</p>
@@ -118,7 +118,7 @@ require BASE_PATH . '/views/layouts/header.php';
         <h3>
             <?php
             echo match ($method) {
-                'transfer' => 'Upload Bukti Transfer',
+                'bank_transfer' => 'Upload Bukti Transfer',
                 'ewallet' => 'Upload Bukti Pembayaran E-Wallet',
                 'qris' => 'Upload Bukti Pembayaran QRIS',
                 default => 'Upload Bukti Pembayaran'
