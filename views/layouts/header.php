@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($title ?? APP_NAME) ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 </head>
 <body>
@@ -21,17 +22,17 @@
         </nav>
 
         <div class="nav-icons">
-            <a href="<?= BASE_URL ?>/register" title="register">Register</a>
-
             <?php if (is_logged_in()): ?>
-                <a href="<?= BASE_URL ?>/user/dashboard" title="Account">👤</a>
+                <a href="<?= BASE_URL ?>/logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a href="<?= BASE_URL ?>/user/dashboard" title="Account"><i class="fa-regular fa-user"></i></a>
+                <?php if (is_admin()): ?>
+                    <a href="<?= BASE_URL ?>/admin/dashboard">Admin</a>
+                <?php endif; ?>
             <?php else: ?>
-                <a href="<?= BASE_URL ?>/login" title="Account">👤</a>
+                <a href="<?= BASE_URL ?>/login" title="Account" ><i class="fa-regular fa-user"></i></a>
+                <a href="<?= BASE_URL ?>/register">Register</a>
             <?php endif; ?>
-
-            <a href="<?= BASE_URL ?>/cart" title="Keranjang">🛒</a>
-
-            <a href="https://wa.me/<?= WHATSAPP_NUMBER ?>" target="_blank" title="WhatsApp">WhatsApp</a>
+            <a href="<?= BASE_URL ?>/cart" title="Keranjang"><i class="fa-solid fa-bag-shopping"></i></a>
         </div>
     </div>
 </header>

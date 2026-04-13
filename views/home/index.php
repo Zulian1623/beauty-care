@@ -51,7 +51,6 @@ require BASE_PATH . '/views/layouts/header.php';
             </div>
         </div>
     </div>
-
     <div class="hero-media">
         <div class="hero-image-wrap">
             <img src="<?= BASE_URL ?>/assets/img/1.jpg" alt="Beauty Care">
