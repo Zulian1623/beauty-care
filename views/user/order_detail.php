@@ -113,7 +113,7 @@ require BASE_PATH . '/views/layouts/header.php';
     </ul>
 </div>
 
-<?php if ($method !== 'cod'): ?>
+<?php if ($method !== 'cod' && $order['payment_status'] === 'rejected'): ?>
     <div class="card">
         <h3>
             <?php

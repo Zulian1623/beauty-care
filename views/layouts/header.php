@@ -16,7 +16,7 @@
         <nav class="nav-center">
             <a href="<?= BASE_URL ?>/">Home</a>
             <a href="<?= BASE_URL ?>/catalog">Products</a>
-            <a href="#blog">Blog</a>
+            <a href="<?= BASE_URL ?>/blog">Blog</a>
             <a href="#contact">Contact</a>
         </nav>
 
