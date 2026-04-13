@@ -49,8 +49,8 @@ $totalPages = max(1, (int)ceil($total / $limit));
 $stmt = $pdo->prepare("
     SELECT p.*, b.name AS brand_name, c.name AS category_name
     FROM products p
-    JOIN brands b ON b.id=p.brand_id
-    JOIN categories c ON c.id=p.category_id
+    LEFT JOIN brands b ON b.id = p.brand_id
+    LEFT JOIN categories c ON c.id = p.category_id
     WHERE p.name LIKE ?
     ORDER BY p.id DESC
     LIMIT $limit OFFSET $offset
@@ -88,7 +88,7 @@ require BASE_PATH . '/views/layouts/admin_header.php';
                 <td><?= $product['id'] ?></td>
                 <td><?= e($product['name']) ?></td>
                 <td><?= e($product['brand_name']) ?></td>
-                <td><?= e($product['category_name']) ?></td>
+                <td><?= e($product['category_name']?? 'Tanpa Kategori') ?></td>
                 <td><?= rupiah($product['price']) ?></td>
                 <td><?= $product['stock'] ?></td>
                 <td><?= $product['is_active'] ? '<span class="badge badge-green">Aktif</span>' : '<span class="badge badge-red">Nonaktif</span>' ?></td>
