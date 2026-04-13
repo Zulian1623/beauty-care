@@ -624,6 +624,11 @@ p{
   margin-top:12px;
   width:100%;
 }
+.show-all-wrap{
+  margin-top:32px;
+  display:flex;
+  justify-content:center;
+}
 
 /* FOOTER */
 .site-footer{

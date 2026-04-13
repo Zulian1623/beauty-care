@@ -11,6 +11,10 @@ $stmt = $pdo->query("
 ");
 $products = $stmt->fetchAll();
 
+$totalProducts = (int) $pdo->query("
+    SELECT COUNT(*) FROM products WHERE is_active = 1
+")->fetchColumn();
+
 require BASE_PATH . '/views/layouts/header.php';
 ?>
 
@@ -28,7 +32,7 @@ require BASE_PATH . '/views/layouts/header.php';
         </p>
 
         <div class="hero-actions">
-            <a class="btn hero-btn" href="<?= BASE_URL ?>/catalog">Shop Now</a>
+            <a class="btn hero-btn" href="<?= BASE_URL ?>/products">Shop Now</a>
             <a class="btn btn-outline hero-btn-outline" href="#popular-products">Learn More</a>
         </div>
 
@@ -85,7 +89,7 @@ require BASE_PATH . '/views/layouts/header.php';
     <div class="section-intro">
         <span class="hero-badge">Best Sellers</span>
         <h2>Our Popular Products</h2>
-        <p>Carefully curated skincare essentials loved by thousands of customers worldwide</p>
+        <p>Showing <?= count($products) ?> of <?= $totalProducts ?> products</p>
     </div>
 
     <div class="products-grid">
@@ -117,6 +121,10 @@ require BASE_PATH . '/views/layouts/header.php';
                 </div>
             </article>
         <?php endforeach; ?>
+    </div>
+
+    <div class="show-all-wrap">
+        <a class="btn" href="<?= BASE_URL ?>/products">Show All Products</a>
     </div>
 </section>
 

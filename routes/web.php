@@ -2,6 +2,7 @@
 $routes = [
     '/' => ['view' => 'home/index'],
     '/catalog' => ['view' => 'product/catalog'],
+    '/products' => ['view' => 'product/catalog'],
     '/product' => ['view' => 'product/detail'],
     '/cart' => ['view' => 'cart/index'],
     '/checkout' => ['view' => 'checkout/index'],
