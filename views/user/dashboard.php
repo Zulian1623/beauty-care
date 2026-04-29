@@ -7,5 +7,6 @@ require BASE_PATH . '/views/layouts/header.php';
 <div class="grid two-cols">
     <a class="card" href="<?= BASE_URL ?>/user/addresses">Kelola Alamat</a>
     <a class="card" href="<?= BASE_URL ?>/user/orders">Pesanan Saya</a>
+    <a href="<?= BASE_URL ?>/logout">Logout</a>
 </div>
 <?php require BASE_PATH . '/views/layouts/footer.php'; ?>

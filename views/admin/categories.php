@@ -21,9 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'delete' && $id > 0) {
-        $pdo->prepare('DELETE FROM categories WHERE id=?')->execute([$id]);
-        admin_log('Menghapus kategori', ['id' => $id]);
-        flash('success', 'Kategori dihapus.');
+        try {
+            // 1. Set produk jadi tanpa kategori
+            $stmt = $pdo->prepare('UPDATE products SET category_id = NULL WHERE category_id = ?');
+            $stmt->execute([$id]);
+
+            // 2. Hapus kategori
+            $stmt2 = $pdo->prepare('DELETE FROM categories WHERE id = ?');
+            $stmt2->execute([$id]);
+
+            admin_log('Menghapus kategori', ['id' => $id]);
+            flash('success', 'Kategori dihapus, produk terkait sekarang tidak berkategori.');
+        } catch (PDOException $e) {
+            // Ini bakal munculin pesan kalau ternyata DB-nya masih nolak NULL
+            flash('error', 'Gagal: Pastikan database mengizinkan category_id kosong! (Error: ' . $e->getMessage() . ')');
+        }
     }
 
     redirect('/admin/categories');

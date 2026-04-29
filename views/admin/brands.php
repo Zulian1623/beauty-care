@@ -33,13 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'delete' && $id > 0) {
-        $pdo->prepare('DELETE FROM brands WHERE id=?')->execute([$id]);
+        try {
+            $stmt = $pdo->prepare('DELETE FROM brands WHERE id = ?');
+            $stmt->execute([$id]);
 
-        admin_log('Menghapus brand', [
-            'brand_id' => $id
-        ]);
+            admin_log('Menghapus brand dan produk terkait', ['id' => $id]);
+            flash('success', 'Brand dan semua produk di dalamnya berhasil dihapus.');
 
-        flash('success', 'Brand dihapus.');
+        } catch (PDOException $e) {
+            flash('error', 'Gagal menghapus: ' . $e->getMessage());
+        }
     }
 
     redirect('/admin/brands');
