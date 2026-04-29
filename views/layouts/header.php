@@ -25,7 +25,7 @@
 
         <nav class="nav-links">
             <a href="<?= BASE_URL ?>/">Home</a>
-            <a href="#catalog" class="nav-link">Catalog</a>
+            <a href="<?= BASE_URL ?>/#catalog" class="nav-link">Catalog</a>
             <a href="<?= BASE_URL ?>/cart">Cart (<?= cart_count() ?>)</a>
 
             <?php if (is_logged_in()): ?>

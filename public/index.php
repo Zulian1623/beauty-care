@@ -22,6 +22,12 @@ if (($route['action'] ?? '') === 'logout') {
     exit;
 }
 
+if (($route['action'] ?? '') === 'order_confirm') {
+    $controller = new \App\Controllers\OrderController($pdo);
+    $controller->confirm();
+    exit;
+}
+
 $view = BASE_PATH . '/views/' . $route['view'] . '.php';
 if (!file_exists($view)) {
     http_response_code(500);

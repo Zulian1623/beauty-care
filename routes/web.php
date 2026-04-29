@@ -16,6 +16,7 @@ $routes = [
     '/user/order-detail' => ['view' => 'user/order_detail'],
     '/user/invoice' => ['view' => 'user/invoice'],
     '/user/invoice-pdf' => ['view' => 'user/invoice_pdf'],
+    '/order/confirm' => ['action' => 'order_confirm'],
 
     '/admin/dashboard' => ['view' => 'admin/dashboard'],
     '/admin/products' => ['view' => 'admin/products/index'],

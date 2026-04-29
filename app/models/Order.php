@@ -43,4 +43,16 @@ class Order extends BaseModel
             'pages' => max(1, (int) ceil($total / $limit)),
         ];
     }
+    public function find($id)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM orders WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    public function updateStatus($id, $status)
+    {
+        $stmt = $this->db->prepare("UPDATE orders SET order_status = ? WHERE id = ?");
+        return $stmt->execute([$status, $id]);
+    }
 }

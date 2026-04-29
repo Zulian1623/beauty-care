@@ -24,4 +24,35 @@ class OrderController
     {
         return $this->items->byOrder($id);
     }
+
+    // 🔥 TAMBAHAN: konfirmasi pesanan oleh user
+    public function confirm()
+    {
+        require_login();
+        verify_csrf();
+
+        $orderId = (int) ($_POST['order_id'] ?? 0);
+        $userId = current_user_id();
+
+        // ambil order
+        $order = $this->orders->find($orderId);
+
+        // validasi kepemilikan
+        if (!$order || $order['user_id'] != $userId) {
+            flash('error', 'Order ga valid.');
+            redirect('/orders');
+        }
+
+        // validasi status harus shipped
+        if ($order['order_status'] !== 'shipped') {
+            flash('error', 'Belum bisa dikonfirmasi.');
+            redirect('/orders');
+        }
+
+        // update ke completed
+        $this->orders->updateStatus($orderId, 'completed');
+
+        flash('success', 'Pesanan berhasil dikonfirmasi.');
+        redirect('/orders');
+    }
 }
