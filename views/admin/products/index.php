@@ -78,6 +78,7 @@ require BASE_PATH . '/views/layouts/admin_header.php';
             <th>Kategori</th>
             <th>Harga</th>
             <th>Stok</th>
+            <th>Kadaluarsa</th>
             <th>Status</th>
             <th>Aksi</th>
         </tr>
@@ -91,6 +92,21 @@ require BASE_PATH . '/views/layouts/admin_header.php';
                 <td><?= e($product['category_name']?? 'Tanpa Kategori') ?></td>
                 <td><?= rupiah($product['price']) ?></td>
                 <td><?= $product['stock'] ?></td>
+                <td>
+                    <?php if (!empty($product['expired_date'])): ?>
+                        <?php if (strtotime($product['expired_date']) < strtotime(date('Y-m-d'))): ?>
+                            <span class="badge badge-red">
+                                Expired: <?= e(date('d-m-Y', strtotime($product['expired_date']))) ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="badge badge-green">
+                                <?= e(date('d-m-Y', strtotime($product['expired_date']))) ?>
+                            </span>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
                 <td><?= $product['is_active'] ? '<span class="badge badge-green">Aktif</span>' : '<span class="badge badge-red">Nonaktif</span>' ?></td>
                 <td>
                     <a href="<?= BASE_URL ?>/admin/products/edit?id=<?= $product['id'] ?>">Edit</a> |

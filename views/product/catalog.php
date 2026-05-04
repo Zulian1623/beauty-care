@@ -8,7 +8,7 @@ $offset = ($page - 1) * $limit;
 
 $brands = $pdo->query('SELECT * FROM brands ORDER BY name ASC')->fetchAll();
 
-$where = ' WHERE p.is_active = 1 ';
+$where = " WHERE p.is_active = 1 AND (p.expired_date IS NULL OR p.expired_date >= CURDATE()) ";
 $params = [];
 
 if ($q !== '') {

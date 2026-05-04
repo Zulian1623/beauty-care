@@ -5,14 +5,17 @@ $stmt = $pdo->query("
     SELECT p.*, b.name AS brand_name
     FROM products p
     JOIN brands b ON b.id = p.brand_id
-    WHERE p.is_active = 1
+    WHERE p.is_active = 1 
+    AND (p.expired_date IS NULL OR p.expired_date >= CURDATE())
     ORDER BY p.id DESC
     LIMIT 8
 ");
 $products = $stmt->fetchAll();
 
 $totalProducts = (int) $pdo->query("
-    SELECT COUNT(*) FROM products WHERE is_active = 1
+    SELECT COUNT(*) FROM products 
+    WHERE is_active = 1 
+    AND (expired_date IS NULL OR expired_date >= CURDATE())
 ")->fetchColumn();
 
 require BASE_PATH . '/views/layouts/header.php';
@@ -32,8 +35,8 @@ require BASE_PATH . '/views/layouts/header.php';
         </p>
 
         <div class="hero-actions">
-            <a class="btn hero-btn" href="<?= BASE_URL ?>/products">Shop Now</a>
-            <a class="btn btn-outline hero-btn-outline" href="#popular-products">Learn More</a>
+            <a class="btn hero-btn" href="#catalog">Shop Now</a>
+            <a class="btn btn-outline hero-btn-outline" href="#about">Learn More</a>
         </div>
 
         <div class="hero-stats">
@@ -51,6 +54,7 @@ require BASE_PATH . '/views/layouts/header.php';
             </div>
         </div>
     </div>
+
     <div class="hero-media">
         <div class="hero-image-wrap">
             <img src="<?= BASE_URL ?>/assets/img/1.jpg" alt="Beauty Care">
@@ -84,7 +88,47 @@ require BASE_PATH . '/views/layouts/header.php';
     </div>
 </section>
 
-<section id="popular-products" class="products-home">
+<section id="about" class="about-section">
+    <div class="about-container">
+        <div class="about-copy">
+            <span class="hero-badge">About Beauty Care</span>
+
+            <h2>Natural Skincare for Your Daily Glow</h2>
+
+            <p>
+                Beauty Care menghadirkan koleksi skincare pilihan yang dirancang untuk
+                membantu merawat, menutrisi, dan menjaga kesehatan kulit setiap hari.
+                Dengan bahan-bahan alami yang dipilih secara hati-hati, setiap produk
+                dibuat agar nyaman digunakan dan cocok untuk melengkapi rutinitas
+                perawatan kulitmu.
+            </p>
+
+            <p>
+                Kami percaya bahwa kulit sehat dimulai dari perawatan yang lembut,
+                aman, dan konsisten. Karena itu, produk Beauty Care diformulasikan
+                untuk membantu menampilkan kilau alami kulit, menjaga kelembapan,
+                serta membuat kulit tampak lebih segar, bersih, dan bercahaya.
+            </p>
+
+            <div class="about-actions" style="margin-bottom: 20px;">
+                <a class="btn hero-btn" href="#catalog">Explore Products</a>
+            </div>
+        </div>
+
+        <div class="about-card card">
+            <h3>Why Choose Us?</h3>
+
+            <ul>
+                <li>Made with selected natural ingredients</li>
+                <li>Gentle formula for daily skincare routine</li>
+                <li>Designed to nourish and protect your skin</li>
+                <li>Suitable for customers who love soft and glowing skin</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="catalog" class="products-home">
     <div class="section-intro">
         <span class="hero-badge">Best Sellers</span>
         <h2>Our Popular Products</h2>

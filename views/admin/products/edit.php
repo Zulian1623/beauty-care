@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description'] ?? '');
     $price = (float)$_POST['price'];
     $stock = (int)$_POST['stock'];
+    $expireDate = !empty($_POST['expired_date']) ? $_POST['expired_date'] : null;
     $sku = trim($_POST['sku'] ?? '');
     $isActive = isset($_POST['is_active']) ? 1 : 0;
     $image = $product['image'];
@@ -30,8 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         redirect('/admin/products/edit?id=' . $id);
     }
 
-    $update = $pdo->prepare('UPDATE products SET brand_id=?, category_id=?, name=?, description=?, price=?, stock=?, sku=?, image=?, is_active=? WHERE id=?');
-    $update->execute([$brandId, $categoryId, $name, $description, $price, $stock, $sku, $image, $isActive, $id]);
+    $update = $pdo->prepare('
+        UPDATE products 
+        SET brand_id=?, category_id=?, name=?, description=?, price=?, stock=?, expired_date=?, sku=?, image=?, is_active=? 
+        WHERE id=?
+    ');
+
+    $update->execute([
+        $brandId,
+        $categoryId,
+        $name,
+        $description,
+        $price,
+        $stock,
+        $expireDate,
+        $sku,
+        $image,
+        $isActive,
+        $id
+    ]);
+
     admin_log('Mengupdate brand', ['id' => $id, 'name' => $name, 'description' => $description]);
     flash('success', 'Produk berhasil diperbarui.');
     redirect('/admin/products');
@@ -46,9 +65,21 @@ require BASE_PATH . '/views/layouts/admin_header.php';
     <label>Kategori<select name="category_id" required><?php foreach ($categories as $c): ?><option value="<?= $c['id'] ?>" <?= $product['category_id'] == $c['id'] ? 'selected' : '' ?>><?= e($c['name']) ?></option><?php endforeach; ?></select></label>
     <label>Nama Produk<input type="text" name="name" value="<?= e($product['name']) ?>" required></label>
     <label>SKU<input type="text" name="sku" value="<?= e($product['sku']) ?>"></label>
-    <label>Harga<input type="number" name="price" value="<?= e($product['price']) ?>" required></label>
-    <label>Stok<input type="number" name="stock" value="<?= e($product['stock']) ?>" required></label>
-    <label>Deskripsi<textarea name="description" required><?= e($product['description']) ?></textarea></label>
+    <label>Harga
+        <input type="number" name="price" value="<?= e($product['price']) ?>" required>
+    </label>
+
+    <label>Stok
+        <input type="number" name="stock" value="<?= e($product['stock']) ?>" required>
+    </label>
+
+    <label>Tanggal Kadaluarsa
+        <input type="date" name="expired_date" value="<?= e($product['expired_date'] ?? '') ?>">
+    </label>
+
+    <label>Deskripsi
+        <textarea name="description" required><?= e($product['description']) ?></textarea>
+    </label>
     <label>Gambar Baru<input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"></label>
     <label><input type="checkbox" name="is_active" <?= $product['is_active'] ? 'checked' : '' ?>> Aktif</label>
     <button class="btn">Update</button>

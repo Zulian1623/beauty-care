@@ -25,7 +25,6 @@ class OrderController
         return $this->items->byOrder($id);
     }
 
-    // 🔥 TAMBAHAN: konfirmasi pesanan oleh user
     public function confirm()
     {
         require_login();
@@ -34,25 +33,26 @@ class OrderController
         $orderId = (int) ($_POST['order_id'] ?? 0);
         $userId = current_user_id();
 
-        // ambil order
+        if ($orderId <= 0) {
+            flash('error', 'Pesanan tidak valid.');
+            redirect('/user/orders');
+        }
+
         $order = $this->orders->find($orderId);
 
-        // validasi kepemilikan
-        if (!$order || $order['user_id'] != $userId) {
-            flash('error', 'Order ga valid.');
-            redirect('/orders');
+        if (!$order || (int) $order['user_id'] !== (int) $userId) {
+            flash('error', 'Pesanan tidak ditemukan atau bukan milik kamu.');
+            redirect('/user/orders');
         }
 
-        // validasi status harus shipped
         if ($order['order_status'] !== 'shipped') {
-            flash('error', 'Belum bisa dikonfirmasi.');
-            redirect('/orders');
+            flash('error', 'Pesanan belum bisa dikonfirmasi karena statusnya belum dikirim.');
+            redirect('/user/orders');
         }
 
-        // update ke completed
         $this->orders->updateStatus($orderId, 'completed');
 
-        flash('success', 'Pesanan berhasil dikonfirmasi.');
-        redirect('/orders');
+        flash('success', 'Pesanan berhasil dikonfirmasi. Status pesanan sudah berubah menjadi selesai.');
+        redirect('/user/orders');
     }
 }

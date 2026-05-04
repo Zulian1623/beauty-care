@@ -12,6 +12,8 @@ if (!$product) {
     die('Produk tidak ditemukan');
 }
 
+$isExpired = !empty($product['expired_date']) && strtotime($product['expired_date']) < strtotime(date('Y-m-d'));
+
 $galleryStmt = $pdo->prepare('SELECT * FROM product_images WHERE product_id = ? ORDER BY is_primary DESC, id ASC');
 $galleryStmt->execute([$product['id']]);
 $gallery = $galleryStmt->fetchAll();
@@ -19,6 +21,12 @@ $gallery = $galleryStmt->fetchAll();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_login();
     verify_csrf();
+
+    if ($isExpired) {
+        flash('error', 'Produk ini sudah kadaluarsa dan tidak bisa dibeli.');
+        redirect('/product?slug=' . urlencode($slug));
+    }
+
     $qty = max(1, (int) ($_POST['qty'] ?? 1));
 
     if ($qty > (int) $product['stock']) {
@@ -57,10 +65,27 @@ require BASE_PATH . '/views/layouts/header.php';
         <p>Brand: <?= e($product['brand_name']) ?></p>
         <p>Kategori: <?= e($product['category_name']) ?></p>
         <p>Stok: <?= (int) $product['stock'] ?></p>
+
+        <?php if (!empty($product['expired_date'])): ?>
+            <?php if (strtotime($product['expired_date']) < strtotime(date('Y-m-d'))): ?>
+                <p style="color:red; font-weight:bold;">
+                    Produk kadaluarsa: <?= e(date('d-m-Y', strtotime($product['expired_date']))) ?>
+                </p>
+            <?php else: ?>
+                <p>
+                    Tanggal Kadaluarsa: <?= e(date('d-m-Y', strtotime($product['expired_date']))) ?>
+                </p>
+            <?php endif; ?>
+        <?php endif; ?>
+
         <strong><?= rupiah($product['price']) ?></strong>
         <div class="desc-box"><?= nl2br(e($product['description'])) ?></div>
 
-        <?php if (is_logged_in()): ?>
+        <?php if ($isExpired): ?>
+            <p>
+                <button class="btn btn-danger" disabled>Produk Kadaluarsa</button>
+            </p>
+        <?php elseif (is_logged_in()): ?>
             <form method="post" class="inline-form">
                 <?= csrf_input() ?>
                 <input type="number" name="qty" min="1" max="<?= (int) $product['stock'] ?>" value="1">

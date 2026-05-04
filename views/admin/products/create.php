@@ -16,13 +16,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = trim($_POST['description'] ?? '');
     $price = (float) $_POST['price'];
     $stock = (int) $_POST['stock'];
+    $expireDate = !empty($_POST['expired_date']) ? $_POST['expired_date'] : null;
     $sku = trim($_POST['sku'] ?? '');
 
     try {
         $image = UploadService::uploadImage($_FILES['image'], UPLOAD_PRODUCT_DIR);
 
-        $stmt = $pdo->prepare('INSERT INTO products(brand_id,category_id,name,slug,description,price,stock,sku,image,is_active) VALUES(?,?,?,?,?,?,?,?,?,1)');
-        $stmt->execute([$brandId, $categoryId, $name, $slug, $description, $price, $stock, $sku, $image]);
+        $stmt = $pdo->prepare('
+            INSERT INTO products
+            (brand_id, category_id, name, slug, description, price, stock, expired_date, sku, image, is_active)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+        ');
+
+        $stmt->execute([
+            $brandId,
+            $categoryId,
+            $name,
+            $slug,
+            $description,
+            $price,
+            $stock,
+            $expireDate,
+            $sku,
+            $image
+        ]);
 
         $productId = (int) $pdo->lastInsertId();
 
@@ -53,6 +70,7 @@ require BASE_PATH . '/views/layouts/admin_header.php';
     <label>SKU<input type="text" name="sku"></label>
     <label>Harga<input type="number" name="price" required></label>
     <label>Stok<input type="number" name="stock" required></label>
+    <label>Tanggal Kadaluarsa<input type="date" name="expired_date"></label>
     <label>Deskripsi<textarea name="description" required></textarea></label>
     <label>Gambar Utama<input type="file" name="image" accept=".jpg,.jpeg,.png,.webp"></label>
     <label>Gallery Produk<input type="file" name="gallery[]" multiple accept=".jpg,.jpeg,.png,.webp"></label>
